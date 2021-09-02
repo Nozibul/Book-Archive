@@ -1,4 +1,3 @@
-document.getElementById('message-error').style.display = 'none';
 document.getElementById('error-msg').style.display = 'none';
 
 // Input search area
@@ -7,27 +6,17 @@ const searchBook = () => {
     const searchText = searchField.value;
     searchField.value = '';
 
-    // Error message
-    document.getElementById('message-error').style.display = 'none';
-    if(searchText === '' ){
-        document.getElementById('message-error').style.display = 'block';
-    }
-
         const url = `https://openlibrary.org/search.json?q=${searchText}`
         fetch(url)
         .then(res => res.json())
-        .then(data => displaySearchResult(data.docs))
+        .then(data => displaySearchResult(data))
        
 }
 
-// total result
-// const total = document.getElementById('total-result');
-// total.innerText = searchBook();
-
 // search result
 const displaySearchResult = books => {
-    console.log(books)
-    const book = books.slice(0, 20)
+    document.getElementById('result').innerText=`Total Books Found: ${books.numFound}`
+    const book = books.docs.slice(0, 20)
     //console.log(book);
     const displayResult = document.getElementById('search-result');
     document.getElementById('error-msg').style.display = 'none';
