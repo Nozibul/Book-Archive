@@ -1,6 +1,7 @@
 document.getElementById('message-error').style.display = 'none';
 document.getElementById('error-msg').style.display = 'none';
 
+// Input search area
 const searchBook = () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
@@ -11,14 +12,12 @@ const searchBook = () => {
     if(searchText === '' ){
         document.getElementById('message-error').style.display = 'block';
     }
-    else{
+
         const url = `https://openlibrary.org/search.json?q=${searchText}`
-        //console.log(url)
         fetch(url)
         .then(res => res.json())
         .then(data => displaySearchResult(data.docs))
-    }
-    
+       
 }
 
 // total result
@@ -27,6 +26,7 @@ const searchBook = () => {
 
 // search result
 const displaySearchResult = books => {
+    console.log(books)
     const book = books.slice(0, 20)
     //console.log(book);
     const displayResult = document.getElementById('search-result');
@@ -49,7 +49,7 @@ const displaySearchResult = books => {
                <img src="https://covers.openlibrary.org/b/id/${books.cover_i}-M.jpg" class="card-img-top" alt="...">
                <h3>${books.title}</h3>
                <h5>by ${books.author_name? books.author_name[0]: ''}</h5>
-               <p>publisher by ${books.publisher}</p>
+               <p>publisher by ${books.publisher[0]}</p>
                <p>First published in ${books.first_publish_year}</p>
              </div>
            </div>
@@ -60,4 +60,3 @@ const displaySearchResult = books => {
      }
 }
 
-//   <h5>by ${books.author_name[0]}</h5>
